@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr" id="htmlRoot">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>AutoDiagnostic Pro</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="https://i.imgur.com/ton-logo.png" type="image/png" />
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="https://i.imgur.com/ton-logo.png" alt="Logo" />
+            <span>AutoDiagnostic <span class="pro">Pro</span></span>
+        </div>
+        <nav>
+            <select id="langSelect" onchange="changeLanguage(this.value)">
+                <option value="fr">Français</option>
+                <option value="ar">العربية</option>
+                <option value="en">English</option>
+            </select>
+            <a href="#" id="btnDashboard">📊 Tableau de bord</a>
+            <a href="#" id="btnLogout" style="display:none;">🚪 Déconnexion</a>
+        </nav>
+    </header>
+
+    <!-- ===== AUTH SECTION ===== -->
+    <section id="authSection" class="auth-section">
+        <div class="auth-card">
+            <h2 id="authTitle">🔐 Inscription / Connexion</h2>
+            <p class="sub" id="authSub">Créez votre compte ou connectez-vous</p>
+
+            <!-- Formulaire d'inscription -->
+            <form id="registerForm">
+                <input type="text" id="regNom" placeholder="Nom" required />
+                <input type="text" id="regPrenom" placeholder="Prénom" required />
+                <input type="text" id="regCIN" placeholder="Numéro CIN" required />
+                <input type="tel" id="regTel" placeholder="Numéro de téléphone" required />
+                <input type="email" id="regEmail" placeholder="E-mail" required />
+                <input type="password" id="regPassword" placeholder="Mot de passe (min 6)" required minlength="6" />
+                
+                <!-- Compte bancaire : optionnel -->
+                <input type="text" id="regCompteBancaire" placeholder="Numéro de compte bancaire (optionnel)" />
+                
+                <label style="display:block; text-align:right; margin:8px 0; font-size:14px; color:#3a4a5a;">
+                    📸 Télécharger photo de la carte d'identité (recto) <span style="color:#b23b3b;">*</span>
+                </label>
+                <input type="file" id="regCINPhoto" accept="image/*" required style="margin-bottom:12px;" />
+                
+                <button type="submit" id="registerBtn">📝 S'inscrire</button>
+            </form>
+
+            <div style="margin:15px 0; text-align:center; color:#7a8a9a;">— ou —</div>
+
+            <!-- Formulaire de connexion -->
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="E-mail" required />
+                <input type="password" id="loginPassword" placeholder="Mot de passe" />
+                <button type="submit">🔓 Se connecter</button>
+            </form>
+
+            <!-- ===== ADMIN LOGIN SECTION ===== -->
+            <div id="adminLoginSection" style="display:none; margin-top:15px; border-top:2px dashed #0077b6; padding-top:15px;">
+                <h4 style="color:#0077b6;">⭐ Admin Login</h4>
+                <p style="font-size:13px; color:#5a6a7a;">
+                    Code de connexion : <strong id="adminCodeDisplay">123456</strong>
+                </p>
+                <div id="adminCodeSection" style="display:block; margin-top:12px;">
+                    <input type="text" id="adminCodeInput" placeholder="Entrez le code" maxlength="6" style="margin-bottom:8px; width:100%; padding:12px; border:2px solid #dce4ec; border-radius:40px; font-size:15px;" />
+                    <button onclick="verifyAdminCode()" style="width:100%; padding:14px; background:#2d6a4f; color:white; border:none; border-radius:40px; font-weight:600; cursor:pointer;">✅ Vérifier et se connecter</button>
+                </div>
+            </div>
+
+            <div style="margin-top:12px;">
+                <a href="#" id="forgotPasswordLink" style="color:#0077b6; text-decoration:none; font-size:14px;">🔑 Mot de passe oublié ?</a>
+            </div>
+
+            <div id="forgotPasswordSection" style="display:none; margin-top:12px;">
+                <input type="text" id="forgotEmailOrTel" placeholder="E-mail ou téléphone" />
+                <button onclick="sendResetCode()" style="margin-top:8px;">📩 Envoyer code</button>
+                <div id="resetCodeSection" style="display:none; margin-top:10px;">
+                    <input type="text" id="resetCodeInput" placeholder="Code reçu" maxlength="6" />
+                    <input type="password" id="resetNewPassword" placeholder="Nouveau mot de passe" />
+                    <button onclick="resetPassword()">✅ Réinitialiser</button>
+                </div>
+            </div>
+
+            <p id="authMessage" style="margin-top:15px; font-size:14px;"></p>
+            <p class="legal">🔒 Sécurisé · Paiement sécurisé</p>
+        </div>
+    </section>
+
+    <!-- ===== DASHBOARD ===== -->
+    <section id="dashboard" style="display:none;">
+        <div class="welcome-banner">
+            <h1 id="welcomeTitle">🚗 AutoDiagnostic Pro</h1>
+            <p id="welcomeSub">Diagnostiquez n'importe quelle voiture</p>
+            <div class="trial-badge">🔥 <span id="trialStatus">Essai : 3 jours</span></div>
+        </div>
+
+        <!-- Recherche -->
+        <div class="search-box">
+            <input type="text" id="carModel" placeholder="Modèle (ex: Golf 7)" />
+            <select id="carBrand">
+                <option value="volkswagen">Volkswagen</option>
+                <option value="bmw">BMW</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="toyota">Toyota</option>
+                <option value="renault">Renault</option>
+                <option value="peugeot">Peugeot</option>
+                <option value="audi">Audi</option>
+                <option value="ford">Ford</option>
+            </select>
+            <select id="carYear">
+                <option value="2020">2020</option><option value="2021">2021</option>
+                <option value="2022">2022</option><option value="2023">2023</option>
+                <option value="2024">2024</option><option value="2025">2025</option>
+            </select>
+            <button onclick="runDiagnostic()">🔍 Lancer</button>
+        </div>
+
+        <!-- Résultats -->
+        <div id="result" class="result" style="display:none;">
+            <h2 id="carTitle">🚗 <span id="carNameDisplay"></span></h2>
+            <ul class="defect-list" id="defectList"></ul>
+            <div class="ai-suggestion">
+                <strong>🧠 Recommandation :</strong>
+                <p id="aiText"></p>
+            </div>
+        </div>
+
+        <!-- Historique -->
+        <div class="history">
+            <h3>📋 Historique</h3>
+            <table>
+                <thead><tr><th>Date</th><th>Véhicule</th><th>Défaut</th><th>Solution</th></tr></thead>
+                <tbody id="historyBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Abonnement -->
+        <div class="subscription-card">
+            <h3>💎 Accès illimité</h3>
+            <div class="plans">
+                <div class="plan">
+                    <h4>Mensuel</h4>
+                    <p class="price">29 DT <span>/mois</span></p>
+                    <p class="price-euro">9€ · 10$</p>
+                    <button onclick="subscribe('monthly')">S'abonner</button>
+                </div>
+                <div class="plan">
+                    <h4>Annuel</h4>
+                    <p class="price">249 DT <span>/an</span></p>
+                    <p class="price-euro">79€ · 85$</p>
+                    <button onclick="subscribe('yearly')">S'abonner</button>
+                </div>
+            </div>
+            <!-- معلومات الدفع تظهر فقط عند النقر على زر الدفع -->
+            <div id="paymentInfo" style="display:none; margin-top:15px; padding:15px; background:#f0f6fe; border-radius:15px;">
+                <p style="font-weight:bold;">💳 Informations de paiement</p>
+                <p>📱 D17 : <strong>55138035</strong></p>
+                <p>🏦 IBAN : <strong>TN59 1234 5678 9012 3456 7890</strong></p>
+                <p style="font-size:13px; color:#5a6a7a;">⚠️ Après paiement, votre abonnement sera activé sous 24h.</p>
+            </div>
+            <p class="payment-info" style="margin-top:12px; font-size:14px; color:#4a5a6a;">
+                💳 Paiement sécurisé
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 AutoDiagnostic Pro — Tous droits réservés.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

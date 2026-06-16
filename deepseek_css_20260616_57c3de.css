@@ -1,0 +1,448 @@
+/* ===== RESET GLOBAL ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+    background: #0a0a0a;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    background-image: 
+        radial-gradient(ellipse at 20% 50%, rgba(0, 119, 182, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(0, 119, 182, 0.10) 0%, transparent 60%),
+        linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 100%);
+    background-attachment: fixed;
+    position: relative;
+}
+
+/* ===== Effet de voiture (overlay) ===== */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.08;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ===== Tous les contenus au-dessus ===== */
+header, section, footer, .auth-card, .welcome-banner, .search-box, .result, .history, .subscription-card {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== HEADER ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px 24px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.logo img {
+    height: 38px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+.logo span {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+}
+.logo .pro {
+    color: #00b4d8;
+    background: rgba(0, 180, 216, 0.15);
+    padding: 1px 12px;
+    border-radius: 30px;
+    font-size: 14px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+nav select {
+    padding: 6px 14px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+}
+nav select option {
+    background: #1a1a2e;
+    color: #ffffff;
+}
+nav a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 30px;
+    transition: 0.3s;
+    font-size: 15px;
+}
+nav a:hover {
+    background: rgba(0, 180, 216, 0.2);
+    color: #ffffff;
+}
+
+/* ===== AUTH ===== */
+.auth-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    width: 100%;
+}
+.auth-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 35px 30px;
+    border-radius: 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+.auth-card h2 {
+    font-size: 26px;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+.auth-card .sub {
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+.auth-card input {
+    width: 100%;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 40px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    transition: 0.3s;
+}
+.auth-card input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+.auth-card input:focus {
+    border-color: #00b4d8;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+}
+.auth-card button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #00b4d8, #0077b6);
+    color: white;
+    border: none;
+    border-radius: 40px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.auth-card button:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 180, 216, 0.3);
+}
+.auth-card .legal {
+    margin-top: 16px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+}
+#authMessage {
+    font-size: 14px;
+    min-height: 24px;
+    color: #ffffff;
+}
+
+/* ===== DASHBOARD ===== */
+.welcome-banner {
+    background: linear-gradient(135deg, rgba(0, 119, 182, 0.3), rgba(0, 180, 216, 0.15));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: white;
+    padding: 28px 32px;
+    border-radius: 22px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+.welcome-banner h1 {
+    font-size: 28px;
+}
+.welcome-banner p {
+    opacity: 0.8;
+    margin-top: 6px;
+    font-size: 16px;
+}
+.trial-badge {
+    margin-top: 12px;
+    background: rgba(0, 180, 216, 0.2);
+    display: inline-block;
+    padding: 6px 22px;
+    border-radius: 50px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+    font-size: 15px;
+    border: 1px solid rgba(0, 180, 216, 0.2);
+}
+
+/* ===== SEARCH ===== */
+.search-box {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 16px 20px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+.search-box input,
+.search-box select {
+    flex: 1 1 140px;
+    min-width: 120px;
+    padding: 11px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+}
+.search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+.search-box select option {
+    background: #1a1a2e;
+    color: #ffffff;
+}
+.search-box button {
+    padding: 11px 28px;
+    background: linear-gradient(135deg, #00b4d8, #0077b6);
+    color: white;
+    border: none;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.search-box button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 30px rgba(0, 180, 216, 0.3);
+}
+
+/* ===== RESULT ===== */
+.result {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 20px 24px;
+    border-radius: 18px;
+    margin-top: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+}
+.defect-list {
+    list-style: none;
+    margin: 12px 0;
+}
+.defect-list li {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 12px 18px;
+    margin-bottom: 8px;
+    border-radius: 14px;
+    border-right: 4px solid #00b4d8;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+}
+.defect-list .solution {
+    color: #4ade80;
+    font-weight: 500;
+}
+.defect-list .cost {
+    color: #f87171;
+    font-weight: 700;
+}
+.ai-suggestion {
+    background: rgba(74, 222, 128, 0.1);
+    padding: 16px 20px;
+    border-radius: 16px;
+    border-right: 4px solid #4ade80;
+    margin-top: 14px;
+    font-size: 15px;
+}
+
+/* ===== HISTORY ===== */
+.history {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 18px 22px;
+    border-radius: 18px;
+    margin-top: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    overflow-x: auto;
+    color: #ffffff;
+}
+.history table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 400px;
+}
+.history th {
+    background: rgba(0, 180, 216, 0.2);
+    color: #ffffff;
+    padding: 10px;
+    text-align: left;
+}
+.history td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ===== SUBSCRIPTION ===== */
+.subscription-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 20px 24px;
+    border-radius: 18px;
+    margin-top: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+}
+.plans {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 14px 0;
+}
+.plan {
+    flex: 1 1 160px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 16px;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: 0.3s;
+}
+.plan:hover {
+    border-color: #00b4d8;
+    background: rgba(0, 180, 216, 0.1);
+}
+.plan h4 {
+    font-size: 18px;
+}
+.plan .price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 6px 0;
+}
+.plan .price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+}
+.plan .price-euro {
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+.plan button {
+    background: linear-gradient(135deg, #00b4d8, #0077b6);
+    color: white;
+    border: none;
+    padding: 8px 22px;
+    border-radius: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+}
+.plan button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 180, 216, 0.3);
+}
+.payment-info {
+    margin-top: 12px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    margin-top: 32px;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+    padding-bottom: 10px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+    body { padding: 8px; }
+    header { padding: 10px 14px; flex-direction: column; align-items: stretch; }
+    .logo { justify-content: center; }
+    nav { justify-content: center; }
+    .auth-card { padding: 22px 16px; }
+    .auth-card h2 { font-size: 22px; }
+    .welcome-banner { padding: 18px 16px; }
+    .welcome-banner h1 { font-size: 22px; }
+    .search-box { padding: 12px; flex-direction: column; }
+    .search-box input, .search-box select, .search-box button { width: 100%; }
+    .result { padding: 14px 16px; }
+    .defect-list li { flex-direction: column; align-items: flex-start; gap: 4px; font-size: 14px; }
+    .history table { font-size: 12px; min-width: 300px; }
+    .plan { flex: 1 1 100%; }
+}
