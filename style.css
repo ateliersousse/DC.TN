@@ -7,7 +7,7 @@
 }
 
 body {
-    background: #f4f7fc;
+    color:white;background:#000;position:relative;overflow-x:hidden;transition:background 0.3s;}
     padding: 12px;
     min-height: 100vh;
     display: flex;
